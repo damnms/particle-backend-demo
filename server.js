@@ -32,8 +32,10 @@ const access_token_1 = process.env.ACCESS_TOKEN_1 || constants.access_token_1;
 const device_id_1 = process.env.DEVICE_ID_1 || constants.device_id_1;
 const access_token_2 = process.env.ACCESS_TOKEN_2 || constants.access_token_2;
 const device_id_2 = process.env.DEVICE_ID_2 || constants.device_id_2;
+const access_token_3 = process.env.ACCESS_TOKEN_2 || constants.access_token_3;
+const device_id_3 = process.env.DEVICE_ID_2 || constants.device_id_3;
 
-eventListeners.deviceIds = [ device_id_1, device_id_2 ];
+eventListeners.deviceIds = [ device_id_1, device_id_2, device_id_3 ];
 
 const devices = [
     {
@@ -46,6 +48,13 @@ if (device_id_2) {
     devices.push({
         device_id: device_id_2,
         access_token: access_token_2
+    })
+}
+
+if (device_id_3) {
+    devices.push({
+        device_id: device_id_3,
+        access_token: access_token_3
     })
 }
 
