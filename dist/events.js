@@ -13,9 +13,15 @@ var app = new Vue({
             if (typeof (EventSource) !== "undefined") {
                 var url = window.location.origin + "/api/events";
                 var source = new EventSource(url);
-                source.onmessage = (event) => { 
-                    this.messages.push(event.data);
-                    this.lastMessage = event.data;
+                source.onmessage = (event) => {
+                    let ev = JSON.parse(event.data);
+
+                    //hacky workaround to use buttonStateChanged method to test our new method but without printing pressed/released
+                    if(ev.eventData.message === "pressed" || ev.eventData.message === "released")
+                        return;
+
+                    this.messages.push(ev.eventData.message);
+                    this.lastMessage = ev.eventData.message;
                 };
             } else {
                 this.message = "Your browser does not support server-sent events.";

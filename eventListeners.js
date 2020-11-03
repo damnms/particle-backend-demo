@@ -68,6 +68,47 @@ function handleButtonStateChanged (event) {
     sendData("buttonStateChanged", data, evDeviceId, evTimestamp );
 }
 
+// react on the "buttonStateChanged" Event
+function reactOnSpeaking (event) {
+    // read variables from the event
+    let ev = JSON.parse(event.data);
+    let evData = ev.data; // the speaking data from the argon event: "true" or "false"
+    let evDeviceId = ev.coreid; // the device id
+    let evTimestamp = Date.parse(ev.published_at); // the timestamp of the event
+
+    // helper variables that we need to build the message to be sent to the clients
+    let sync = false;
+    let msg = "";
+
+    if (evData === "true") {
+        msg = `on device ${evDeviceId} someone is talking`;
+        // check if the last two button press events were whithin 1 second
+        if (evTimestamp - lastButtonPressEvent.timestamp < 1000) {
+            if (evDeviceId !== lastButtonPressEvent.deviceId) {
+                sync = true;
+            }
+        }
+
+        lastButtonPressEvent.timestamp = evTimestamp;
+        lastButtonPressEvent.deviceId = evDeviceId;
+    }
+    else if (evData === "false") {
+        msg = `on device ${evDeviceId} someone stopped talking`;
+    }
+    else {
+        msg = "unknown state";
+    }
+
+    // the data we want to send to the clients
+    let data = {
+        message: msg,
+        pressedSync: sync
+    }
+
+    // send data to all connected clients
+    sendData("buttonStateChanged", data, evDeviceId, evTimestamp );
+}
+
 // send data to the clients.
 // You don't have to change this function
 function sendData(evName, evData, evDeviceId, evTimestamp ) {
@@ -93,3 +134,4 @@ exports.sse = null;
 // export your own functions here as well
 exports.handleBlinkingStateChanged = handleBlinkingStateChanged;
 exports.handleButtonStateChanged = handleButtonStateChanged;
+exports.reactOnSpeaking = reactOnSpeaking;

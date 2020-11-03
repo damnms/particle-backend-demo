@@ -70,6 +70,7 @@ for (let device of devices) {
     /////////////////////////////////////////////////////////
     source.addEventListener('buttonStateChanged', eventListeners.handleButtonStateChanged)
     source.addEventListener('blinkingStateChanged', eventListeners.handleBlinkingStateChanged)
+    source.addEventListener('speaking', eventListeners.reactOnSpeaking)
 
     /////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////
