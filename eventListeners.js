@@ -68,7 +68,7 @@ function handleButtonStateChanged (event) {
     sendData("buttonStateChanged", data, evDeviceId, evTimestamp );
 }
 
-// react on the "buttonStateChanged" Event
+// react on the "speaking" variable change Event
 function reactOnSpeaking (event) {
     // read variables from the event
     let ev = JSON.parse(event.data);
@@ -106,7 +106,7 @@ function reactOnSpeaking (event) {
     }
 
     // send data to all connected clients
-    sendData("buttonStateChanged", data, evDeviceId, evTimestamp );
+    sendData("speaking", data, evDeviceId, evTimestamp );
 }
 
 // send data to the clients.
