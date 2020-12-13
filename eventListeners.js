@@ -5,7 +5,7 @@ function handleDataChanged (event) {
 
     //hier krachts
     //hacky workaround to get rid of NAN errors crashing my server!
-    let evData = JSON.parse(ev.data.replace('nan', "0")); // the data from the argon event. temperature and humidity, separated with ;
+    let evData = JSON.parse(ev.data.replace(/nan/g,"\"SensorError\"")); // the data from the argon event. temperature and humidity, separated with ;
 
     var temp = evData.curTemp;
     var humidity = evData.curHum;

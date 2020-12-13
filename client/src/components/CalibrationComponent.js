@@ -15,8 +15,18 @@ export default {
                 var source = new EventSource(url);
                 source.onmessage = (event) => {
                     let ev = JSON.parse(event.data);
-                    this.curTemp = Math.round(ev.eventData.temp);
-                    this.curHumidity = Math.round(ev.eventData.humidity);
+                    if(ev.eventData.temp === "SensorError") {
+                        this.curTemp = "Sensor Error!";
+                    }
+                    else {
+                        this.curTemp = Math.round(ev.eventData.temp);
+                    }
+
+                    if(ev.eventData.humidity === "SensorError"){
+                        this.curHumidity = "Sensor Error!";
+                    } else {
+                        this.curHumidity = Math.round(ev.eventData.humidity);
+                    }
                 };
             } else {
                 this.message = "Your browser does not support server-sent events.";
@@ -54,10 +64,22 @@ export default {
               After that, press "Ok" to finish the calibration</p>
             
                 <div class="group">
-                    <label id="curTemp">Current temperature: {{curTemp}}°C</label><br />
+                    <div v-if="curTemp === 'Sensor Error!'">
+                        <label id="curTemp">There is an error in your temperature sensor!!!!</label><br />
+                    </div>
+                    <div v-else>
+                        <label id="curTemp">Current temperature: {{curTemp}}°C</label>
+                    </div>
                 </div>
+                
                  <div class="group">
-                    <label id="curHumidity">Current humidity: {{curHumidity}}%</label><br />
+                 <div v-if="curHumidity === 'Sensor Error!'">
+                        <label id="curHumidity">There is an error in your humidity sensor!!!!</label><br />
+                    </div>
+                    <div v-else>
+                        <label id="curHumidity">Current humidity: {{curHumidity}}%</label><br />
+                    </div>
+                    
                 </div>
                 <div class="btn-box">
                   <button v-on:click="calibrationButtonClicked">Start calibration</button>

@@ -20,8 +20,19 @@ export default {
                 var source = new EventSource(url);
                 source.onmessage = (event) => {
                     let ev = JSON.parse(event.data);
-                    this.curTemp = Math.round(ev.eventData.temp);
-                    this.curHumidity = Math.round(ev.eventData.humidity);
+                    if(ev.eventData.temp === "SensorError") {
+                        this.curTemp = "Sensor Error!";
+                    }
+                    else {
+                        this.curTemp = Math.round(ev.eventData.temp);
+                    }
+
+                    if(ev.eventData.humidity === "SensorError"){
+                        this.curHumidity = "Sensor Error!";
+                    } else {
+                        this.curHumidity = Math.round(ev.eventData.humidity);
+                    }
+
                     this.prefHumLow = ev.eventData.prefHumLow;
                     this.prefHumHigh = ev.eventData.prefHumHigh;
                     this.prefTempHigh = ev.eventData.prefTempHigh;
