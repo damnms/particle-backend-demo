@@ -60,31 +60,31 @@ export default {
 
     template: `<section>
 
-            <p>Raise your humidity to the highest possible level. Then press "start calibration" button and start lowering your humidity as fast as possible. 
-              After that, press "Ok" to finish the calibration</p>
-            
-                <div class="group">
-                    <div v-if="curTemp === 'Sensor Error!'">
-                        <label id="curTemp">There is an error in your temperature sensor!!!!</label><br />
-                    </div>
-                    <div v-else>
-                        <label id="curTemp">Current temperature: {{curTemp}}°C</label>
-                    </div>
-                </div>
-                
-                 <div class="group">
-                 <div v-if="curHumidity === 'Sensor Error!'">
-                        <label id="curHumidity">There is an error in your humidity sensor!!!!</label><br />
-                    </div>
-                    <div v-else>
-                        <label id="curHumidity">Current humidity: {{curHumidity}}%</label><br />
-                    </div>
-                    
-                </div>
-                <div class="btn-box">
-                  <button v-on:click="calibrationButtonClicked">Start calibration</button>
-                  <button v-on:click="okButtonClicked">Ok</button>
-                </div>
-            
-        </section>`
+    <p>Raise your humidity to the highest possible level. Then press "start calibration" button and start lowering your humidity as fast as possible.
+      After that, press "Ok" to finish the calibration</p>
+
+    <div class="group">
+      <div v-if="curTemp === 'Sensor Error!'">
+        <label id="curTemp">There is an error in your temperature sensor!!!!</label>
+      </div>
+      <div v-else>
+        <label id="curTemp">Current temperature: {{curTemp}}°C</label>
+      </div><br />
+    </div>
+
+    <div class="group">
+      <div v-if="curHumidity === 'Sensor Error!'">
+        <label id="curHumidity">There is an error in your humidity sensor!!!!</label>
+      </div>
+      <div v-else>
+        <label id="curHumidity">Current humidity: {{curHumidity}}%</label>
+      </div>
+
+    </div>
+    <div class="btn-box">
+      <button v-on:click="calibrationButtonClicked">Start calibration</button>
+      <button v-on:click="okButtonClicked">Ok</button>
+    </div>
+
+    </section>`
 };
